@@ -62,11 +62,12 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 50px 100px;
+            justify-content: flex-start;
+            padding: 40px 70px 75px 70px;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease;
+            overflow-y: auto;
         }
 
         .slide.active {
@@ -75,17 +76,20 @@
         }
 
         .slide-content {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             width: 100%;
         }
 
+        /* Backgrounds */
         .slide.bg-white { background: var(--wit); }
         .slide.bg-paars-light { background: var(--paars-10); }
         .slide.bg-blauw-light { background: var(--blauw-10); }
+        .slide.bg-geel-light { background: var(--geel-10); }
         .slide.bg-paars { background: var(--paars-100); }
         .slide.bg-blauw { background: var(--blauw-100); }
 
+        /* Title Slide */
         .slide.title-slide {
             text-align: center;
             justify-content: center;
@@ -101,7 +105,7 @@
         }
 
         h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--wit);
             margin-bottom: 20px;
@@ -111,42 +115,59 @@
         h1 .highlight { color: var(--geel-100); }
 
         .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: rgba(255,255,255,0.85);
             font-weight: 400;
-            max-width: 600px;
+            max-width: 750px;
             margin: 0 auto;
             line-height: 1.5;
         }
 
+        /* Section headers */
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--blauw-100);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .slide.bg-paars .section-label,
+        .slide.bg-blauw .section-label {
+            color: var(--geel-100);
+        }
+
         .slide h2 {
-            font-size: 1.9rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--paars-100);
             margin-bottom: 6px;
+            line-height: 1.2;
         }
 
         .slide.bg-paars h2,
         .slide.bg-blauw h2 { color: var(--wit); }
 
         .slide h2 .accent { color: var(--blauw-100); }
-        .slide.bg-blauw h2 .accent { color: var(--geel-100); }
+        .slide h2 .emoji { font-size: 1.4rem; margin-right: 6px; }
 
         .intro-text {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: var(--grijs-75);
-            margin-bottom: 30px;
-            max-width: 650px;
+            margin-bottom: 20px;
+            max-width: 850px;
+            line-height: 1.5;
         }
 
         .slide.bg-paars .intro-text,
         .slide.bg-blauw .intro-text { color: rgba(255,255,255,0.8); }
 
         .slide p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--grijs-100);
-            line-height: 1.55;
-            margin-bottom: 8px;
+            line-height: 1.5;
+            margin-bottom: 6px;
         }
 
         .slide.bg-paars p,
@@ -155,13 +176,14 @@
         .slide ul {
             list-style: none;
             margin-left: 0;
+            margin-bottom: 10px;
         }
 
         .slide ul li {
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             color: var(--grijs-100);
-            line-height: 1.45;
-            margin-bottom: 6px;
+            line-height: 1.4;
+            margin-bottom: 4px;
             padding-left: 16px;
             position: relative;
         }
@@ -183,17 +205,30 @@
         .slide.bg-paars ul li::before,
         .slide.bg-blauw ul li::before { background: var(--geel-100); }
 
+        /* Nested lists */
+        .slide ul ul {
+            margin-top: 3px;
+            margin-left: 12px;
+        }
+
+        .slide ul ul li::before {
+            width: 4px;
+            height: 4px;
+            background: var(--grijs-50);
+        }
+
+        /* Two columns */
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 45px;
+            gap: 30px;
         }
 
         .column h3 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: var(--paars-100);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -201,21 +236,26 @@
         .slide.bg-paars .column h3,
         .slide.bg-blauw .column h3 { color: var(--geel-100); }
 
+        /* Cards */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
 
-        .card-grid.two-col {
-            grid-template-columns: repeat(2, 1fr);
+        .card-grid.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .card-grid.four-col {
+            grid-template-columns: repeat(4, 1fr);
         }
 
         .card {
             background: var(--wit);
-            padding: 22px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
 
         .slide.bg-white .card {
@@ -224,84 +264,70 @@
         }
 
         .card h4 {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--paars-100);
-            margin-bottom: 6px;
+            margin-bottom: 5px;
+        }
+
+        .card h4 .emoji {
+            margin-right: 5px;
         }
 
         .card p {
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             margin-bottom: 0;
             color: var(--grijs-75);
             line-height: 1.4;
         }
 
-        /* Comparison blocks */
-        .compare-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .card ul {
+            margin-bottom: 0;
         }
 
-        .compare-block {
-            padding: 28px;
+        .card ul li {
+            font-size: 0.82rem;
         }
 
-        .compare-block.old {
-            background: var(--grijs-10);
+        /* Highlight box */
+        .highlight-box {
+            background: var(--paars-100);
+            color: var(--wit);
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 12px;
+            font-size: 0.88rem;
         }
 
-        .compare-block.new {
+        .highlight-box strong { color: var(--geel-100); }
+
+        .highlight-box.teal {
             background: var(--blauw-100);
         }
 
-        .compare-block h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 14px;
+        .highlight-box.yellow {
+            background: var(--geel-100);
+            color: var(--paars-100);
         }
 
-        .compare-block.old h3 { color: var(--grijs-100); }
-        .compare-block.new h3 { color: var(--wit); }
-
-        .compare-block p {
-            font-size: 0.92rem;
-            line-height: 1.5;
+        .highlight-box.yellow strong {
+            color: var(--paars-100);
         }
-
-        .compare-block.old p { color: var(--grijs-75); }
-        .compare-block.new p { color: rgba(255,255,255,0.9); }
-
-        .keynote {
-            background: var(--paars-100);
-            color: var(--wit);
-            padding: 16px 24px;
-            border-radius: 6px;
-            margin-top: 20px;
-            font-size: 0.95rem;
-            text-align: center;
-        }
-
-        .keynote strong { color: var(--geel-100); }
 
         /* Process flow */
         .process-flow {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin: 15px 0;
+            justify-content: flex-start;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .process-step {
-            flex: 1;
-            text-align: center;
-            padding: 14px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.78rem;
             font-weight: 500;
         }
 
@@ -315,12 +341,6 @@
             color: var(--wit);
         }
 
-        .process-step.yellow {
-            background: var(--geel-100);
-            color: var(--paars-100);
-            font-weight: 600;
-        }
-
         .process-step.purple {
             background: var(--paars-100);
             color: var(--wit);
@@ -328,158 +348,86 @@
 
         .process-arrow {
             color: var(--grijs-50);
-            font-size: 1.2rem;
-            padding: 0 8px;
+            font-size: 0.9rem;
         }
 
         .flow-label {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             font-weight: 600;
             color: var(--grijs-75);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+            margin-top: 10px;
         }
 
-        /* Phases */
-        .phases {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-        }
-
-        .phase {
-            background: var(--wit);
-            padding: 22px 14px;
-            border-radius: 8px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .phase::after {
-            content: '→';
-            position: absolute;
-            right: -12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.1rem;
-            color: var(--grijs-50);
-        }
-
-        .phase:last-child::after { display: none; }
-
-        .phase-number {
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            background: var(--blauw-100);
-            color: var(--wit);
-            border-radius: 50%;
-            font-weight: 700;
-            font-size: 0.95rem;
-            line-height: 32px;
-            margin-bottom: 10px;
-        }
-
-        .phase h4 {
-            color: var(--paars-100);
-            font-size: 0.9rem;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-
-        .phase .muted {
-            color: var(--grijs-75);
-            font-weight: 400;
-        }
-
-        /* Data classification table */
-        .class-table {
+        /* Tables */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.88rem;
+            font-size: 0.82rem;
             background: var(--wit);
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            margin-top: 12px;
         }
 
-        .class-table th {
+        .data-table th {
             background: var(--paars-100);
             color: var(--wit);
-            padding: 12px 16px;
+            padding: 9px 12px;
             text-align: left;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
         }
 
-        .class-table td {
-            padding: 10px 16px;
+        .data-table td {
+            padding: 8px 12px;
             color: var(--grijs-100);
             border-bottom: 1px solid var(--grijs-10);
         }
 
-        .class-table tr:last-child td { border-bottom: none; }
+        .data-table tr:last-child td { border-bottom: none; }
 
-        .class-table td:first-child {
+        .data-table td:first-child {
             font-weight: 600;
             color: var(--paars-100);
         }
 
-        .class-table .highlight-row td {
-            background: rgba(169, 19, 82, 0.08);
+        .data-table.small {
+            font-size: 0.78rem;
         }
 
-        .success-factors {
-            margin-top: 20px;
-            padding: 14px 20px;
-            background: var(--wit);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            max-width: 750px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .success-factors strong {
-            color: var(--paars-100);
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .success-factors span {
-            color: var(--grijs-75);
-            font-size: 0.85rem;
-            padding-left: 16px;
-            border-left: 2px solid var(--blauw-50);
+        .data-table.small th,
+        .data-table.small td {
+            padding: 7px 10px;
         }
 
         /* Navigation */
         .nav {
             position: fixed;
-            bottom: 22px;
+            bottom: 18px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             z-index: 1000;
             background: var(--wit);
-            padding: 10px 18px;
-            border-radius: 30px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            padding: 8px 16px;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .nav-btn {
-            width: 34px;
-            height: 34px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             border: none;
             background: var(--paars-10);
             color: var(--paars-100);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -504,104 +452,55 @@
 
         .slide-counter {
             color: var(--grijs-75);
-            font-size: 0.8rem;
-            min-width: 40px;
+            font-size: 0.72rem;
+            min-width: 42px;
             text-align: center;
         }
 
-        .progress-dots {
-            display: flex;
-            gap: 5px;
+        .progress-bar {
+            width: 100px;
+            height: 4px;
+            background: var(--grijs-10);
+            border-radius: 2px;
+            overflow: hidden;
         }
 
-        .dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--grijs-25);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .dot.active { background: var(--blauw-100); }
-        .dot:hover { background: var(--paars-75); }
-
-        .keyboard-hint {
-            position: fixed;
-            bottom: 68px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--grijs-50);
-            font-size: 0.7rem;
-        }
-
-        /* Overview grid */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .overview-item {
-            background: var(--wit);
-            padding: 16px;
-            border-radius: 6px;
-            border-left: 3px solid var(--blauw-100);
-        }
-
-        .overview-item.start {
-            border-left-color: var(--geel-100);
-            background: var(--geel-10);
-        }
-
-        .overview-item strong {
-            color: var(--paars-100);
-            display: block;
-            margin-bottom: 3px;
-            font-size: 0.85rem;
-        }
-
-        .overview-item.start strong {
-            color: var(--blauw-100);
-        }
-
-        .overview-item span {
-            color: var(--grijs-75);
-            font-size: 0.85rem;
-            line-height: 1.4;
+        .progress-fill {
+            height: 100%;
+            background: var(--blauw-100);
+            transition: width 0.3s ease;
         }
 
         /* Animations */
         .slide.active .slide-content > * {
-            animation: fadeIn 0.5s ease forwards;
+            animation: fadeIn 0.4s ease forwards;
             opacity: 0;
         }
 
         .slide.active .slide-content > *:nth-child(1) { animation-delay: 0s; }
-        .slide.active .slide-content > *:nth-child(2) { animation-delay: 0.05s; }
-        .slide.active .slide-content > *:nth-child(3) { animation-delay: 0.1s; }
-        .slide.active .slide-content > *:nth-child(4) { animation-delay: 0.15s; }
+        .slide.active .slide-content > *:nth-child(2) { animation-delay: 0.03s; }
+        .slide.active .slide-content > *:nth-child(3) { animation-delay: 0.06s; }
+        .slide.active .slide-content > *:nth-child(4) { animation-delay: 0.09s; }
+        .slide.active .slide-content > *:nth-child(5) { animation-delay: 0.12s; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .muted { color: var(--grijs-75); }
+        /* Utility */
+        .mt-10 { margin-top: 10px; }
+        .mt-15 { margin-top: 15px; }
+        .mt-20 { margin-top: 20px; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-15 { margin-bottom: 15px; }
 
-        .small-note {
-            font-size: 0.85rem;
-            color: var(--grijs-75);
-            margin-top: 8px;
-        }
+        .text-small { font-size: 0.82rem; }
+        .text-muted { color: var(--grijs-75); }
 
-        .accent-text {
-            color: var(--blauw-100);
-            font-weight: 600;
-        }
-
+        /* Conclusion slide */
         .conclusion-text {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: var(--wit);
             max-width: 700px;
@@ -614,266 +513,621 @@
 
         .cta-box {
             background: rgba(255,255,255,0.15);
-            padding: 20px 30px;
+            padding: 18px 28px;
             border-radius: 8px;
-            margin-top: 35px;
-            display: inline-block;
+            margin-top: 30px;
+            text-align: center;
         }
 
         .cta-box p {
             color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            margin-bottom: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
         }
 
         .cta-box strong {
             color: var(--geel-100);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
+        }
+
+        /* Phase indicator */
+        .phase-badge {
+            display: inline-block;
+            background: var(--blauw-100);
+            color: var(--wit);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .slide.bg-blauw .phase-badge {
+            background: var(--geel-100);
+            color: var(--paars-100);
         }
     </style>
 </head>
 <body>
     <div class="presentation">
-        <!-- Slide 1: Title -->
+        <!-- Slide 1: Titel -->
         <div class="slide title-slide active" data-slide="1">
             <div class="slide-content">
-                <h1><span class="highlight">AI</span> als Managementopgave</h1>
-                <p class="subtitle">Van Digital Business naar Agentic AI binnen ActiZ</p>
+                <h1>ACTIZ<br><span class="highlight">AI</span> als Managementopgave</h1>
             </div>
         </div>
 
-        <!-- Slide 2: Kernboodschap -->
+        <!-- Slide 2: Inhoudsopgave -->
         <div class="slide bg-white" data-slide="2">
             <div class="slide-content">
-                <h2>Van Digital naar <span class="accent">Agentic AI</span></h2>
-                <p class="intro-text">Een fundamentele verschuiving in hoe organisaties werken.</p>
-                <div class="compare-container">
-                    <div class="compare-block old">
-                        <h3>Digital Business</h3>
-                        <p><strong>Focus:</strong> Efficiëntie van bestaande processen<br>
-                        <strong>Werking:</strong> Systemen wachten op input<br>
-                        <strong>Rol mens:</strong> Bouwt en beslist, systeem voert uit</p>
+                <h2>Inhoudsopgave</h2>
+                <div class="two-columns mt-15">
+                    <div class="column">
+                        <h3>Deel 1: Reflectie</h3>
+                        <p>Reflectie op het artikel "Van digital business naar AI business" van Wiemer Kuik (LinkedIn, 3 feb 2026) én een concrete vertaling wat dit betekent voor de processen van een lobby- en brancheorganisatie zoals ActiZ.</p>
                     </div>
-                    <div class="compare-block new">
-                        <h3>Agentic AI</h3>
-                        <p><strong>Focus:</strong> Autonomie en anticipatie<br>
-                        <strong>Werking:</strong> Systemen nemen waar, leren, handelen<br>
-                        <strong>Rol mens:</strong> Van 'maken' naar 'regisseren'</p>
+                    <div class="column">
+                        <h3>Deel 2: Roadmap</h3>
+                        <p>Aandachtspunten Roadmap: van digital business naar AI-gedreven lobbyorganisatie. De voorgestelde roadmap bestaat uit 4 fasen.</p>
                     </div>
-                </div>
-                <div class="keynote">
-                    <strong>Kernboodschap:</strong> De grootste uitdaging is niet de technologie, maar de cultuuromslag.
                 </div>
             </div>
         </div>
 
-        <!-- Slide 3: Impact -->
+        <!-- Slide 3: Kernpunten uit het artikel -->
         <div class="slide bg-paars-light" data-slide="3">
             <div class="slide-content">
-                <h2>Impact op de ActiZ Organisatie</h2>
-                <p class="intro-text">Van zelf bouwen naar het regisseren van processen.</p>
-                <div class="card-grid two-col">
+                <p class="section-label">Deel 1</p>
+                <h2>🔍 Kernpunten uit het artikel</h2>
+                <p class="intro-text">In het artikel stelt Kuik dat we niet langer in een digital business-model zitten, maar in een nieuw tijdperk van AI business (soms aangeduid als "agentic"). En dat vereist een fundamentele verandering in hoe organisaties werken:</p>
+                
+                <div class="card-grid">
                     <div class="card">
-                        <h4>Strategie & Beleid</h4>
-                        <p>Van efficiency-verbetering naar autonomie. Wat mogen systemen beslissen? Verschuiving naar data-analyse en interpretatie.</p>
+                        <h4><span class="emoji">📌</span>Verschuiving van digital naar agentic</h4>
+                        <p>Digitalisering was vooral efficiënter maken van bestaande processen met systemen die uitvoeren als mensen beslissen. <strong>Agentic AI</strong> betekent systemen die zelfstandig waarnemen, leren en handelen binnen afgesproken kaders.</p>
                     </div>
                     <div class="card">
-                        <h4>Workflows & Processen</h4>
-                        <p>Mens regisseert, AI verzamelt en analyseert. Van zelf maken naar coördineren wat AI genereert.</p>
+                        <h4><span class="emoji">🧠</span>Van systemen die wachten op input naar systemen die anticiperen</h4>
+                        <p>In het old-school digital model reageert technologie. In een agentic model handelen systemen zelf vooruit, voorspellen wat nodig is en interveniëren zonder expliciete menselijke instructie.</p>
                     </div>
                     <div class="card">
-                        <h4>Mensen & Cultuur</h4>
-                        <p>Medewerkers leren samenwerken met 'autonome collega's'. Training en nieuwe vaardigheden nodig.</p>
+                        <h4><span class="emoji">👥</span>Rol van de mens verandert: van maker naar regisseur</h4>
+                        <p>Innovatie en ontwikkeling verschuiven van zelf bouwen naar regisseren van AI-gedreven processen. Mensen blijven verantwoordelijk voor richting, ethiek en doelen, terwijl AI de uitvoering op zich neemt.</p>
                     </div>
                     <div class="card">
-                        <h4>Governance & Lobby</h4>
-                        <p>Wie is verantwoordelijk bij fouten? Van periodieke analyses naar real-time, evidence-based beïnvloeding.</p>
+                        <h4><span class="emoji">🧠</span>Culturele en organisatorische verandering > technologie alleen</h4>
+                        <p>De grootste uitdaging is niet tech, maar cultuur: hoe leren mensen samenwerken met autonome entiteiten?</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: Roadmap -->
+        <!-- Slide 4: Wat betekent dit voor ActiZ? -->
         <div class="slide bg-white" data-slide="4">
             <div class="slide-content">
-                <h2>Roadmap: <span class="accent">4 Fasen</span></h2>
-                <p class="intro-text">Logisch opgebouwd — fases overslaan werkt niet.</p>
-                <div class="phases">
-                    <div class="phase">
-                        <div class="phase-number">1</div>
-                        <h4>Het Fundament<br><span class="muted">Data & Governance</span></h4>
+                <p class="section-label">Deel 1</p>
+                <h2>🧠 Wat betekent dit concreet voor een lobby- en brancheorganisatie zoals ActiZ?</h2>
+                <p class="intro-text">Een lobby- of branchevereniging zoals ActiZ werkt op het snijvlak van belangenbehartiging, kennisdeling en beleid. Concrete gevolgen voor hun processen:</p>
+                
+                <div class="card-grid three-col">
+                    <div class="card">
+                        <h4>1️⃣ Visie en strategie</h4>
+                        <p>Moeten worden aangepast</p>
                     </div>
-                    <div class="phase">
-                        <div class="phase-number">2</div>
-                        <h4>Processen<br><span class="muted">Herontwerpen</span></h4>
+                    <div class="card">
+                        <h4>2️⃣ Beleidsprocessen</h4>
+                        <p>Veranderen</p>
                     </div>
-                    <div class="phase">
-                        <div class="phase-number">3</div>
-                        <h4>Mensen & Rollen<br><span class="muted">Ontwikkelen</span></h4>
+                    <div class="card">
+                        <h4>3️⃣ Interne workflows</h4>
+                        <p>Aanpassen</p>
                     </div>
-                    <div class="phase">
-                        <div class="phase-number">4</div>
-                        <h4>Nieuwe Lobby<br><span class="muted">Agentic AI</span></h4>
+                    <div class="card">
+                        <h4>4️⃣ Training medewerkers</h4>
+                        <p>Kennisvergroting</p>
+                    </div>
+                    <div class="card">
+                        <h4>5️⃣ Ethiek & governance</h4>
+                        <p>Worden structureel</p>
+                    </div>
+                    <div class="card">
+                        <h4>6️⃣ Lobby-activiteiten</h4>
+                        <p>Méér evidence-based en real-time</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 5: Fase 1 -->
+        <!-- Slide 5: Visie en strategie -->
         <div class="slide bg-blauw-light" data-slide="5">
             <div class="slide-content">
-                <h2>Fase 1: Het Fundament</h2>
-                <p class="intro-text">Zonder goed fundament geen betrouwbare AI.</p>
+                <p class="section-label">Deel 1</p>
+                <h2>1️⃣ Visie en strategie moeten worden aangepast</h2>
+                <p class="intro-text">Traditionele plannen rond digitalisering gaan over efficiency-verbetering. Nu moet ActiZ het hebben over:</p>
                 
-                <table class="class-table" style="max-width: 750px;">
-                    <tr>
-                        <th>Classificatie</th>
-                        <th>Voorbeeld</th>
-                        <th>AI Toegang</th>
-                    </tr>
-                    <tr>
-                        <td>Openbaar</td>
-                        <td>Publicaties, standpunten</td>
-                        <td>Volledig toegestaan</td>
-                    </tr>
-                    <tr>
-                        <td>Intern</td>
-                        <td>Werkinstructies, memo's</td>
-                        <td>Toegestaan binnen kaders</td>
-                    </tr>
-                    <tr>
-                        <td>Vertrouwelijk</td>
-                        <td>Lobbystrategieën</td>
-                        <td>Menselijke validatie vereist</td>
-                    </tr>
-                    <tr class="highlight-row">
-                        <td>Zeer vertrouwelijk</td>
-                        <td>Politieke scenario's, ledeninfo</td>
-                        <td>Uitsluiting of strikte permissie</td>
-                    </tr>
-                </table>
+                <ul>
+                    <li><strong>Autonomie van systemen</strong> → wat mogen systemen zelf beslissen?</li>
+                    <li><strong>Regie-rollen van mensen</strong> → wie bewaakt doelen, ethiek en publieke waarden?</li>
+                    <li><strong>Effect op stakeholders</strong> → hoe gebruikt ActiZ AI voor leden en voor relatie met beleidsmakers?</li>
+                </ul>
 
-                <div class="success-factors">
-                    <strong>Kritische succesfactoren:</strong>
-                    <span>Single Source of Truth per datacategorie</span>
-                    <span>Versiebeheer</span>
-                    <span>AI-stuurgroep instellen</span>
+                <div class="highlight-box teal">
+                    ➡ Dit vereist een <strong>strategische roadmap voor AI-adoptie</strong> die veel verder gaat dan standaard digitaliseringsprojecten.
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: Fase 2 -->
+        <!-- Slide 6: Beleidsprocessen veranderen -->
         <div class="slide bg-white" data-slide="6">
             <div class="slide-content">
-                <h2>Fase 2: Procesherontwerp</h2>
-                <p class="intro-text">Niet automatiseren wat we deden, maar opnieuw ontwerpen.</p>
+                <p class="section-label">Deel 1</p>
+                <h2>2️⃣ Beleidsprocessen veranderen</h2>
+                <p class="intro-text">Lobbywerk en beleidsadvies worden doorgaans gestuurd door analyses en rapporten van mensen. Met agentic AI:</p>
                 
-                <div class="flow-label">Oude werkwijze</div>
-                <div class="process-flow">
-                    <div class="process-step grey">Medewerker leest Kamerstukken</div>
-                    <div class="process-arrow">→</div>
-                    <div class="process-step grey">Mens schrijft analyse</div>
-                    <div class="process-arrow">→</div>
-                    <div class="process-step grey">Reactieve lobby</div>
-                </div>
-                
-                <div class="flow-label" style="margin-top: 20px;">Nieuwe werkwijze</div>
-                <div class="process-flow">
-                    <div class="process-step teal">AI monitort 24/7</div>
-                    <div class="process-arrow">→</div>
-                    <div class="process-step teal">AI signaleert risico's & kansen</div>
-                    <div class="process-arrow">→</div>
-                    <div class="process-step yellow">Beleidsregisseur bepaalt strategie</div>
-                    <div class="process-arrow">→</div>
-                    <div class="process-step purple">Proactieve lobby</div>
-                </div>
+                <ul>
+                    <li>AI kan continu beleidsinformatie verzamelen en analyseren (wetgeving, Kamerdebatten, media).</li>
+                    <li>Scenario-analyse en voorspellingen kunnen automatisch plaatsvinden.</li>
+                    <li>AI-systemen kunnen trends herkennen voordat een mens dat ziet.</li>
+                </ul>
 
-                <p class="small-note" style="margin-top: 25px;"><strong>Kennismanagement:</strong> Impliciete kennis expliciet maken — "Hoe beoordelen wij beleid?" — om AI te trainen op ActiZ-waarden.</p>
+                <div class="highlight-box">
+                    ➡ Hierdoor moet ActiZ processen ontwerpen voor <strong>waarborgen van kwaliteit, transparantie en ethiek</strong> van AI-output.
+                </div>
             </div>
         </div>
 
-        <!-- Slide 7: Fase 3 -->
+        <!-- Slide 7: Aanpassen interne workflows -->
         <div class="slide bg-paars-light" data-slide="7">
             <div class="slide-content">
-                <h2>Fase 3: Mensen, Rollen & Cultuur</h2>
-                <p class="intro-text">Technologie verandert sneller dan cultuur — hier zit de bottleneck.</p>
-                <div class="card-grid">
-                    <div class="card">
-                        <h4>Nieuwe Rollen</h4>
-                        <p><strong>AI-Regisseur:</strong> Stuurt AI-processen<br>
-                        <strong>Ethiek-bewaker:</strong> Toetst output<br>
-                        <strong>Data-eigenaar:</strong> Borgt kwaliteit</p>
-                    </div>
-                    <div class="card">
-                        <h4>Training & Skills</h4>
-                        <p>Niet 'leren prompten' maar 'leren samenwerken'. Kritisch lezen, bias herkennen, scenario-denken.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Cultuur</h4>
-                        <p>Fouten mogen benoemd. AI-output is <em>voorstel</em>, geen waarheid. Mens blijft leidend.</p>
-                    </div>
+                <p class="section-label">Deel 1</p>
+                <h2>3️⃣ Aanpassen van interne workflows</h2>
+                
+                <div class="flow-label">In plaats van:</div>
+                <p>📍 Mens verwerkt data → mens adviseert → lobbyacties</p>
+
+                <div class="flow-label">Wordt het:</div>
+                <p>🤖 AI verzamelt & analyseert data → mens regisseert focus en prioriteiten → lobbyacties</p>
+
+                <div class="highlight-box mt-15">
+                    ➡ Het werk verandert van <strong>zelf iets maken</strong> naar <strong>coördineren en interpreteren</strong> wat AI genereert.
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: Fase 4 -->
+        <!-- Slide 8: Training en kennisvergroting -->
         <div class="slide bg-white" data-slide="8">
             <div class="slide-content">
-                <h2>Fase 4: De Nieuwe Lobby</h2>
-                <p class="intro-text">Evidence-based, real-time en gepersonaliseerd.</p>
-                <div class="card-grid">
-                    <div class="card">
-                        <h4>Real-time Impactanalyses</h4>
-                        <p>Wat betekent amendement X voor onze leden? Direct inzicht in gevolgen.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Stakeholder Analyse</h4>
-                        <p>Wie heeft invloed? Historische standpunten? Gepersonaliseerde boodschappen.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Simulaties</h4>
-                        <p>Vooruitkijken in plaats van terugkijken. Scenario's doorrekenen vóór besluitvorming.</p>
-                    </div>
+                <p class="section-label">Deel 1</p>
+                <h2>4️⃣ Training en kennisvergroting van medewerkers</h2>
+                <p class="intro-text">Veel medewerkers van brancheorganisaties hebben expertise in beleid, communicatie en sectorinhoud. Maar dat is niet genoeg:</p>
+                
+                <ul>
+                    <li>Mensen moeten leren werken met AI-tools → niet alleen gebruiken, maar begrijpen wat de AI doet en waarom.</li>
+                    <li>Opleidingen rond AI governance, bias, transparantie en verantwoorde AI worden nodig.</li>
+                </ul>
+
+                <div class="highlight-box teal">
+                    ➡ Dit moet onderdeel worden van <strong>organisatorische cultuur en HR-ontwikkeltrajecten</strong>.
                 </div>
-                <p class="small-note" style="margin-top: 20px; text-align: center;"><span class="accent-text">Resultaat:</span> Scherpere, snellere en beter onderbouwde belangenbehartiging.</p>
             </div>
         </div>
 
-        <!-- Slide 9: Overzicht -->
+        <!-- Slide 9: Ethiek, governance en risicobeheer -->
         <div class="slide bg-blauw-light" data-slide="9">
             <div class="slide-content">
-                <h2>Wat moet ActiZ regelen?</h2>
-                <div class="overview-grid" style="margin-top: 20px;">
-                    <div class="overview-item">
-                        <strong>Data</strong>
-                        <span>Actualiteit, structuur, eigenaarschap, classificatie</span>
+                <p class="section-label">Deel 1</p>
+                <h2>5️⃣ Ethiek, governance en risicobeheer worden structureel</h2>
+                <p class="intro-text">Wanneer systemen zelfstandig kunnen handelen:</p>
+                
+                <ul>
+                    <li>Wie is verantwoordelijk bij fouten of onbedoelde gevolgen?</li>
+                    <li>Hoe borg je dat AI de belangen van de doelgroep (bij ActiZ: zorgorganisaties en hun cliënten) correct vertegenwoordigt?</li>
+                    <li>Hoe voorkom je dat AI misleidende of ongecontroleerde outputs produceert?</li>
+                </ul>
+
+                <div class="highlight-box">
+                    ➡ Dit vereist <strong>nieuwe governance-lagen, toetsingsprocedures en verantwoordingsmodellen</strong> die expliciet gericht zijn op AI-gebruik (compliance, audit, ethische kaders).
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Lobby-activiteiten -->
+        <div class="slide bg-white" data-slide="10">
+            <div class="slide-content">
+                <p class="section-label">Deel 1</p>
+                <h2>6️⃣ Lobby-activiteiten kunnen méér evidence-based en real-time worden</h2>
+                <p class="intro-text">Agentic AI kan helpen:</p>
+                
+                <ul>
+                    <li>✔ Signalen uit grote hoeveelheden (wetenschappelijke) data sneller te detecteren</li>
+                    <li>✔ AI-gestuurde stakeholder-analyse (wie heeft invloed, wat gebeurt er?)</li>
+                    <li>✔ Scenario simulaties voor beleidsontwikkelingen</li>
+                </ul>
+
+                <div class="highlight-box teal">
+                    ➡ Dit betekent een <strong>krachtigere evidence-based lobby</strong> met snellere inschatting van effecten voor leden.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Samenvattende tabel -->
+        <div class="slide bg-paars-light" data-slide="11">
+            <div class="slide-content">
+                <p class="section-label">Deel 1</p>
+                <h2>📌 Samenvattend: wat moet ActiZ anders gaan doen?</h2>
+                
+                <table class="data-table">
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Oude manier</th>
+                        <th>Nieuwe manier via agentic AI</th>
+                    </tr>
+                    <tr>
+                        <td>Data verwerking</td>
+                        <td>Handmatig en reactief</td>
+                        <td>Continu, autonoom en anticiperend</td>
+                    </tr>
+                    <tr>
+                        <td>Innovatie</td>
+                        <td>Mensen bouwen oplossingen</td>
+                        <td>Mensen regisseren AI-gedreven oplossingen</td>
+                    </tr>
+                    <tr>
+                        <td>Besluitvorming</td>
+                        <td>Mens centraal</td>
+                        <td>Mens bewaakt doelen, AI voert en anticipeert</td>
+                    </tr>
+                    <tr>
+                        <td>Lobby</td>
+                        <td>Periodieke analyses</td>
+                        <td>Real-time beleidsinzichten</td>
+                    </tr>
+                    <tr>
+                        <td>Cultuur</td>
+                        <td>Tech als tool</td>
+                        <td>Tech als partner in processen</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 12: Conclusie Deel 1 -->
+        <div class="slide bg-paars" data-slide="12">
+            <div class="slide-content">
+                <p class="section-label">Deel 1</p>
+                <h2>🧠 Conclusie</h2>
+                <p class="intro-text">Het artikel benadrukt dat AI geen extra tool is, maar een fundamentele verandering in operating models: systemen nemen meer autonomie, mensen worden regisseurs. Voor ActiZ betekent dit dat:</p>
+                
+                <ul>
+                    <li>Interne processen opnieuw ontworpen moeten worden,</li>
+                    <li>Rollen en verantwoordelijkheden veranderd worden,</li>
+                    <li>Training en governance cruciaal zijn,</li>
+                    <li>Lobby en beleidsinzicht substantieel sneller, evidence-based en data-gedreven kunnen plaatsvinden.</li>
+                </ul>
+
+                <div class="highlight-box yellow mt-15">
+                    Deze transitie vraagt niet alleen technologie-kennis, maar vooral <strong>organisatiekunde, ethische kaders en leiderschap</strong>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Deel 2 Intro -->
+        <div class="slide bg-blauw" data-slide="13">
+            <div class="slide-content">
+                <p class="section-label">Deel 2: Roadmap</p>
+                <h2>Aandachtspunten Roadmap: van digital business naar AI-gedreven lobbyorganisatie</h2>
+                <p class="intro-text">De voorgestelde roadmap bestaat uit 4 fasen. Ze bouwen logisch op elkaar voort; fases overslaan werkt niet.</p>
+                
+                <div class="card-grid four-col mt-15">
+                    <div class="card" style="background: rgba(255,255,255,0.15); color: white;">
+                        <h4 style="color: var(--geel-100);">Fase 1</h4>
+                        <p style="color: rgba(255,255,255,0.9);">Fundament op orde (data & governance)</p>
                     </div>
-                    <div class="overview-item">
-                        <strong>Governance</strong>
-                        <span>Ethische kaders, verantwoordelijkheidslijnen</span>
+                    <div class="card" style="background: rgba(255,255,255,0.15); color: white;">
+                        <h4 style="color: var(--geel-100);">Fase 2</h4>
+                        <p style="color: rgba(255,255,255,0.9);">Interne processen herontwerpen</p>
                     </div>
-                    <div class="overview-item">
-                        <strong>Processen</strong>
-                        <span>Van 'maken' naar 'regisseren', kennis expliciet maken</span>
+                    <div class="card" style="background: rgba(255,255,255,0.15); color: white;">
+                        <h4 style="color: var(--geel-100);">Fase 3</h4>
+                        <p style="color: rgba(255,255,255,0.9);">Mensen, rollen & vaardigheden</p>
                     </div>
-                    <div class="overview-item">
-                        <strong>Rollen</strong>
-                        <span>AI-regisseur, Ethiek-bewaker, Data-eigenaar</span>
-                    </div>
-                    <div class="overview-item">
-                        <strong>Cultuur</strong>
-                        <span>Kritisch, lerend, mens 'in the loop'</span>
-                    </div>
-                    <div class="overview-item start">
-                        <strong>→ Startpunt</strong>
-                        <span>Het maken van de data-landkaart</span>
+                    <div class="card" style="background: rgba(255,255,255,0.15); color: white;">
+                        <h4 style="color: var(--geel-100);">Fase 4</h4>
+                        <p style="color: rgba(255,255,255,0.9);">Agentic toepassingen in lobby & belangenbehartiging</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 10: Conclusie -->
-        <div class="slide title-slide" data-slide="10">
+        <!-- Slide 14: Fase 1 - Data op orde -->
+        <div class="slide bg-white" data-slide="14">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 1 – Fundament op orde (data & governance)</span>
+                <h2>1. Data op orde krijgen (kritische succesfactor)</h2>
+                <p class="intro-text">Zonder deze fase géén betrouwbare AI. AI is zo slim als de data die je erin stopt. Voor ActiZ betekent dit:</p>
+                
+                <p><strong>a. Inventarisatie van databronnen</strong></p>
+                <ul>
+                    <li>Beleidsdocumenten (intern & extern)</li>
+                    <li>Standpunten, position papers, lobbybrieven</li>
+                    <li>Ledeninformatie (type organisatie, omvang, regio, thema's)</li>
+                    <li>Wet- en regelgeving (nationaal & EU)</li>
+                    <li>Interne notities, memo's, verslagen</li>
+                    <li>Externe bronnen: Kamerstukken, media, onderzoeksrapporten</li>
+                </ul>
+
+                <div class="highlight-box teal">
+                    ➡ <strong>Stap: maak een data-landkaart:</strong> Welke data hebben we? Waar staat het? Wie is eigenaar? Hoe actueel is het?
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Fase 1 - Dataclassificatie -->
+        <div class="slide bg-paars-light" data-slide="15">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 1 – Fundament op orde</span>
+                <h2>2. Dataclassificatie en vertrouwelijkheidslabels</h2>
+                <p class="intro-text">Voor ActiZ is het cruciaal dat alle data worden voorzien van vertrouwelijkheidslabels. Deze labels bepalen niet alleen wie toegang heeft tot informatie, maar ook of en hoe AI deze data mag gebruiken.</p>
+                
+                <p><strong>Voorstel voor classificatie:</strong></p>
+                <ul>
+                    <li><strong>Openbaar:</strong> publicaties, openbare standpunten</li>
+                    <li><strong>Intern:</strong> interne notities, werkinstructies</li>
+                    <li><strong>Vertrouwelijk:</strong> lobbystrategieën, conceptstandpunten</li>
+                    <li><strong>Zeer vertrouwelijk:</strong> politieke scenario's, gevoelige ledeninformatie</li>
+                </ul>
+
+                <p class="text-small text-muted mt-10">AI-systemen mogen uitsluitend toegang krijgen tot data binnen vooraf vastgestelde kaders. Zeer vertrouwelijke informatie vereist expliciete menselijke toestemming of volledige uitsluiting.</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Fase 1 - Actualiteit borgen -->
+        <div class="slide bg-white" data-slide="16">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 1 – Fundament op orde</span>
+                <h2>b. Actualiteit borgen</h2>
+                <p class="intro-text">AI die werkt met verouderde informatie is gevaarlijk in lobbywerk. Concrete maatregelen:</p>
+                
+                <ul>
+                    <li><strong>Single Source of Truth</strong> per datacategorie (bijv. één plek voor standpunten, één voor beleidsupdates)</li>
+                    <li><strong>Versiebeheer</strong> (wat is geldig, wat is historisch?)</li>
+                    <li><strong>Actualisatie-afspraken:</strong> wie actualiseert? hoe vaak? wanneer vervalt informatie automatisch?</li>
+                </ul>
+
+                <p class="mt-10">➡ Denk aan: "Dit standpunt is geldig tot wetsvoorstel X is aangenomen." Of na een x periode wordt dit automatisch op archief gezet.</p>
+                <p class="text-small text-muted">Dit vraagt ook dat er een reviewcycle komt op de actualiteit.</p>
+            </div>
+        </div>
+
+        <!-- Slide 17: Fase 1 - Structureren -->
+        <div class="slide bg-blauw-light" data-slide="17">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 1 – Fundament op orde</span>
+                <h2>c. Structureren voor AI-gebruik</h2>
+                <p class="intro-text">AI werkt slecht met losse pdf's en ongestructureerde tekst. Belangrijke acties:</p>
+                
+                <ul>
+                    <li>Metadata toevoegen (thema, datum, relevant beleidsdomein)</li>
+                    <li>Documenten labelen op:
+                        <ul>
+                            <li>Domein / dossier</li>
+                            <li>politieke relevantie</li>
+                            <li>lobbyfase (signalering – beïnvloeding – evaluatie)</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="highlight-box">
+                    ➡ Dit is geen IT-klus, maar een <strong>inhoudelijke governance-taak</strong>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Fase 1 - AI-governance -->
+        <div class="slide bg-white" data-slide="18">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 1 – Fundament op orde</span>
+                <h2>2. AI-governance & ethisch kader</h2>
+                <p class="intro-text">Omdat ActiZ publieke belangen vertegenwoordigt, is dit essentieel. Inrichten van:</p>
+                
+                <ul>
+                    <li><strong>Heldere regels:</strong>
+                        <ul>
+                            <li>waarvoor mag AI worden gebruikt?</li>
+                            <li>waarvoor expliciet niet?</li>
+                        </ul>
+                    </li>
+                    <li><strong>Transparantie-afspraken:</strong>
+                        <ul>
+                            <li>wanneer vermelden we AI-gebruik?</li>
+                        </ul>
+                    </li>
+                    <li><strong>Verantwoordelijkheid:</strong>
+                        <ul>
+                            <li>AI adviseert → mens beslist</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <p class="mt-10">Leg dit vast in een <strong>ethisch manifest</strong>.</p>
+                <div class="highlight-box teal">
+                    ➡ Advies: stel een <strong>AI-stuurgroep</strong> in (beleid, communicatie, ICT, juridisch).
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Fase 2 - Workflows -->
+        <div class="slide bg-paars-light" data-slide="19">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 2 – Interne processen herontwerpen</span>
+                <h2>3. Van handmatige naar AI-ondersteunde workflows</h2>
+                <p class="intro-text">Niet automatiseren wat je nu doet, maar opnieuw ontwerpen. Voorbeeld: beleidsmonitoring</p>
+                
+                <div class="two-columns">
+                    <div class="column">
+                        <h3>Oud</h3>
+                        <ul>
+                            <li>Medewerker volgt nieuws & Kamerstukken</li>
+                            <li>Periodieke analyse</li>
+                            <li>Reactieve lobby</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Nieuw</h3>
+                        <ul>
+                            <li>AI monitort continu: wetsvoorstellen, amendementen, politieke signalen</li>
+                            <li>AI signaleert: risico's voor leden, kansen voor beïnvloeding</li>
+                            <li>Mens bepaalt: prioriteit, toon, politieke strategie</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-10">
+                    ➡ <strong>Rolverschuiving:</strong> van beleidsanalist → beleidsregisseur
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Fase 2 - Kennismanagement -->
+        <div class="slide bg-white" data-slide="20">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 2 – Interne processen herontwerpen</span>
+                <h2>4. Kennismanagement herzien</h2>
+                <p class="intro-text">AI vraagt om expliciete kennis, niet impliciete ervaring. Acties:</p>
+                
+                <ul>
+                    <li><strong>Stilzwijgende kennis expliciet maken:</strong>
+                        <ul>
+                            <li>"hoe beoordelen wij beleid?"</li>
+                            <li>"wanneer zetten we druk?"</li>
+                            <li>"Wat is ons standpunt inzake?"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Vastleggen van lobby-logica:</strong>
+                        <ul>
+                            <li>welke argumenten werken bij welke stakeholders?</li>
+                            <li>Wat zijn de standpunten van de stakeholders?</li>
+                        </ul>
+                    </li>
+                    <li>AI trainen op ActiZ-specifieke taal en waarden</li>
+                </ul>
+
+                <div class="highlight-box teal">
+                    ➡ Dit voorkomt generieke, niet-passende AI-output.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Fase 3 - Rollen -->
+        <div class="slide bg-blauw-light" data-slide="21">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 3 – Mensen, rollen & vaardigheden</span>
+                <h2>5. Nieuwe rollen definiëren</h2>
+                <p class="intro-text">Technologie verandert sneller dan cultuur — hier zit de bottleneck. Voorbeelden van rollen:</p>
+                
+                <ul>
+                    <li><strong>AI-regisseur</strong> (stuurt AI-processen)</li>
+                    <li><strong>Data-eigenaar</strong> (verantwoordelijk voor actualiteit & kwaliteit)</li>
+                    <li><strong>Ethiek-bewaker</strong> (toetst gebruik & output)</li>
+                    <li><strong>Beleidsprofessional + AI-co-pilot</strong></li>
+                </ul>
+
+                <div class="highlight-box">
+                    ➡ <strong>Belangrijk:</strong> Dit zijn geen IT-rollen, maar beleids- en organisatierollen.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Fase 3 - Training & cultuur -->
+        <div class="slide bg-white" data-slide="22">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 3 – Mensen, rollen & vaardigheden</span>
+                <h2>6. Training & cultuur</h2>
+                <p class="intro-text">Niet "leren prompten", maar leren samenwerken met AI.</p>
+                
+                <div class="two-columns">
+                    <div class="column">
+                        <h3>Trainingen gericht op</h3>
+                        <ul>
+                            <li>Begrijpen wat AI wel/niet kan</li>
+                            <li>Kritisch lezen van AI-output</li>
+                            <li>Bias herkennen</li>
+                            <li>Scenario-denken met AI</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Cultureel</h3>
+                        <ul>
+                            <li>Fouten mogen benoemd worden</li>
+                            <li>AI-output is voorstel, geen waarheid</li>
+                            <li>Menselijke afweging blijft leidend</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Fase 4 - Agentic toepassingen -->
+        <div class="slide bg-paars-light" data-slide="23">
+            <div class="slide-content">
+                <span class="phase-badge">Fase 4 – Agentic toepassingen in lobby & belangenbehartiging</span>
+                <h2>7. AI als actieve lobby-ondersteuner</h2>
+                <p class="intro-text">Concreet:</p>
+                
+                <ul>
+                    <li>Real-time impactanalyses voor leden</li>
+                    <li>Snelle analyse en advies stukken op basis van eigen standpunten</li>
+                    <li>Simulaties: "Wat gebeurt er als amendement X wordt aangenomen?"</li>
+                    <li>Gepersonaliseerde lobby-boodschappen per stakeholder</li>
+                    <li>Snellere terugkoppeling naar leden</li>
+                </ul>
+
+                <div class="highlight-box teal">
+                    ➡ <strong>Resultaat:</strong> Snellere, scherpere en beter onderbouwde belangenbehartiging.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Overzicht -->
+        <div class="slide bg-white" data-slide="24">
+            <div class="slide-content">
+                <h2>Overzicht: wat moet ActiZ intern écht regelen?</h2>
+                
+                <table class="data-table">
+                    <tr>
+                        <th>Domein</th>
+                        <th>Cruciale actie</th>
+                    </tr>
+                    <tr>
+                        <td>Data</td>
+                        <td>Actualiteit, structuur, eigenaarschap</td>
+                    </tr>
+                    <tr>
+                        <td>Governance</td>
+                        <td>Heldere AI-regels & verantwoordelijkheid</td>
+                    </tr>
+                    <tr>
+                        <td>Processen</td>
+                        <td>Van maken → regisseren</td>
+                    </tr>
+                    <tr>
+                        <td>Rollen</td>
+                        <td>Nieuwe functies rondom AI</td>
+                    </tr>
+                    <tr>
+                        <td>Cultuur</td>
+                        <td>Kritisch, lerend, transparant</td>
+                    </tr>
+                    <tr>
+                        <td>Lobby</td>
+                        <td>Meer real-time, evidence-based</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 25: Eindslide -->
+        <div class="slide title-slide" data-slide="25">
             <div class="slide-content">
                 <p class="conclusion-text">AI is geen extra tool, maar een <span class="highlight">fundamentele verandering</span> in hoe we werken.</p>
                 <div class="cta-box">
@@ -887,11 +1141,12 @@
     <!-- Navigation -->
     <div class="nav">
         <button class="nav-btn" id="prevBtn" disabled>←</button>
-        <div class="progress-dots" id="progressDots"></div>
-        <span class="slide-counter"><span id="currentSlide">1</span>/<span id="totalSlides">10</span></span>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="slide-counter"><span id="currentSlide">1</span>/<span id="totalSlides">25</span></span>
         <button class="nav-btn" id="nextBtn">→</button>
     </div>
-    <div class="keyboard-hint">← → pijltjestoetsen</div>
 
     <script>
         const slides = document.querySelectorAll('.slide');
@@ -901,14 +1156,7 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const currentSlideEl = document.getElementById('currentSlide');
-        const progressDots = document.getElementById('progressDots');
-
-        for (let i = 1; i <= totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'dot' + (i === 1 ? ' active' : '');
-            dot.addEventListener('click', () => goToSlide(i));
-            progressDots.appendChild(dot);
-        }
+        const progressFill = document.getElementById('progressFill');
 
         function updateSlide() {
             slides.forEach((slide, index) => {
@@ -917,9 +1165,7 @@
             currentSlideEl.textContent = currentSlide;
             prevBtn.disabled = currentSlide === 1;
             nextBtn.disabled = currentSlide === totalSlides;
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index + 1 === currentSlide);
-            });
+            progressFill.style.width = ((currentSlide / totalSlides) * 100) + '%';
         }
 
         function goToSlide(n) {
@@ -946,6 +1192,8 @@
             const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > 50) goToSlide(currentSlide + (diff > 0 ? 1 : -1));
         });
+
+        updateSlide();
     </script>
 </body>
 </html>
