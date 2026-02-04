@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActiZ - AI als Managementopgave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --geel-100: #F9b000;
+            --geel-75: #Fcc452;
+            --geel-50: #Fed992;
+            --geel-25: #Ffeccb;
+            --geel-10: #Fff8eb;
+            
+            --paars-100: #3c277b;
+            --paars-75: #665095;
+            --paars-50: #9886b8;
+            --paars-25: #Cac1de;
+            --paars-10: #e9e6f2;
+            
+            --blauw-100: #00a1b4;
+            --blauw-75: #5eb8c7;
+            --blauw-50: #9ed0da;
+            --blauw-25: #d1e8ed;
+            --blauw-10: #edf6f9;
+            
+            --grijs-100: #545352;
+            --grijs-75: #7b7a78;
+            --grijs-50: #A5a4a3;
+            --grijs-25: #BFBFBF;
+            --grijs-10: #D9D9D9;
+            
+            --wit: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--paars-10);
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px 100px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .slide-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .slide.bg-white { background: var(--wit); }
+        .slide.bg-paars-light { background: var(--paars-10); }
+        .slide.bg-blauw-light { background: var(--blauw-10); }
+        .slide.bg-paars { background: var(--paars-100); }
+        .slide.bg-blauw { background: var(--blauw-100); }
+
+        .slide.title-slide {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            background: var(--blauw-100);
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--wit);
+            margin-bottom: 20px;
+            line-height: 1.15;
+        }
+
+        h1 .highlight { color: var(--geel-100); }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.85);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .slide h2 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--paars-100);
+            margin-bottom: 6px;
+        }
+
+        .slide.bg-paars h2,
+        .slide.bg-blauw h2 { color: var(--wit); }
+
+        .slide h2 .accent { color: var(--blauw-100); }
+        .slide.bg-blauw h2 .accent { color: var(--geel-100); }
+
+        .intro-text {
+            font-size: 1.05rem;
+            color: var(--grijs-75);
+            margin-bottom: 30px;
+            max-width: 650px;
+        }
+
+        .slide.bg-paars .intro-text,
+        .slide.bg-blauw .intro-text { color: rgba(255,255,255,0.8); }
+
+        .slide p {
+            font-size: 1rem;
+            color: var(--grijs-100);
+            line-height: 1.55;
+            margin-bottom: 8px;
+        }
+
+        .slide.bg-paars p,
+        .slide.bg-blauw p { color: rgba(255,255,255,0.9); }
+
+        .slide ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .slide ul li {
+            font-size: 0.95rem;
+            color: var(--grijs-100);
+            line-height: 1.45;
+            margin-bottom: 6px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .slide ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 5px;
+            height: 5px;
+            background: var(--blauw-100);
+            border-radius: 50%;
+        }
+
+        .slide.bg-paars ul li,
+        .slide.bg-blauw ul li { color: rgba(255,255,255,0.9); }
+
+        .slide.bg-paars ul li::before,
+        .slide.bg-blauw ul li::before { background: var(--geel-100); }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+        }
+
+        .column h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--paars-100);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide.bg-paars .column h3,
+        .slide.bg-blauw .column h3 { color: var(--geel-100); }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card-grid.two-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card {
+            background: var(--wit);
+            padding: 22px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .slide.bg-white .card {
+            background: var(--paars-10);
+            box-shadow: none;
+        }
+
+        .card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--paars-100);
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--grijs-75);
+            line-height: 1.4;
+        }
+
+        /* Comparison blocks */
+        .compare-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .compare-block {
+            padding: 28px;
+        }
+
+        .compare-block.old {
+            background: var(--grijs-10);
+        }
+
+        .compare-block.new {
+            background: var(--blauw-100);
+        }
+
+        .compare-block h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .compare-block.old h3 { color: var(--grijs-100); }
+        .compare-block.new h3 { color: var(--wit); }
+
+        .compare-block p {
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .compare-block.old p { color: var(--grijs-75); }
+        .compare-block.new p { color: rgba(255,255,255,0.9); }
+
+        .keynote {
+            background: var(--paars-100);
+            color: var(--wit);
+            padding: 16px 24px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .keynote strong { color: var(--geel-100); }
+
+        /* Process flow */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            padding: 14px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .process-step.grey {
+            background: var(--grijs-25);
+            color: var(--grijs-100);
+        }
+
+        .process-step.teal {
+            background: var(--blauw-100);
+            color: var(--wit);
+        }
+
+        .process-step.yellow {
+            background: var(--geel-100);
+            color: var(--paars-100);
+            font-weight: 600;
+        }
+
+        .process-step.purple {
+            background: var(--paars-100);
+            color: var(--wit);
+        }
+
+        .process-arrow {
+            color: var(--grijs-50);
+            font-size: 1.2rem;
+            padding: 0 8px;
+        }
+
+        .flow-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--grijs-75);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Phases */
+        .phases {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .phase {
+            background: var(--wit);
+            padding: 22px 14px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .phase::after {
+            content: '→';
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: var(--grijs-50);
+        }
+
+        .phase:last-child::after { display: none; }
+
+        .phase-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--blauw-100);
+            color: var(--wit);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.95rem;
+            line-height: 32px;
+            margin-bottom: 10px;
+        }
+
+        .phase h4 {
+            color: var(--paars-100);
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .phase .muted {
+            color: var(--grijs-75);
+            font-weight: 400;
+        }
+
+        /* Data classification table */
+        .class-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            background: var(--wit);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .class-table th {
+            background: var(--paars-100);
+            color: var(--wit);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .class-table td {
+            padding: 10px 16px;
+            color: var(--grijs-100);
+            border-bottom: 1px solid var(--grijs-10);
+        }
+
+        .class-table tr:last-child td { border-bottom: none; }
+
+        .class-table td:first-child {
+            font-weight: 600;
+            color: var(--paars-100);
+        }
+
+        .class-table .highlight-row td {
+            background: rgba(169, 19, 82, 0.08);
+        }
+
+        .success-factors {
+            margin-top: 20px;
+            padding: 14px 20px;
+            background: var(--wit);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 750px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .success-factors strong {
+            color: var(--paars-100);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .success-factors span {
+            color: var(--grijs-75);
+            font-size: 0.85rem;
+            padding-left: 16px;
+            border-left: 2px solid var(--blauw-50);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            background: var(--wit);
+            padding: 10px 18px;
+            border-radius: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: var(--paars-10);
+            color: var(--paars-100);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: var(--blauw-100);
+            color: var(--wit);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:disabled:hover {
+            background: var(--paars-10);
+            color: var(--paars-100);
+        }
+
+        .slide-counter {
+            color: var(--grijs-75);
+            font-size: 0.8rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--grijs-25);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dot.active { background: var(--blauw-100); }
+        .dot:hover { background: var(--paars-75); }
+
+        .keyboard-hint {
+            position: fixed;
+            bottom: 68px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--grijs-50);
+            font-size: 0.7rem;
+        }
+
+        /* Overview grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .overview-item {
+            background: var(--wit);
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--blauw-100);
+        }
+
+        .overview-item.start {
+            border-left-color: var(--geel-100);
+            background: var(--geel-10);
+        }
+
+        .overview-item strong {
+            color: var(--paars-100);
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.85rem;
+        }
+
+        .overview-item.start strong {
+            color: var(--blauw-100);
+        }
+
+        .overview-item span {
+            color: var(--grijs-75);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Animations */
+        .slide.active .slide-content > * {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .slide.active .slide-content > *:nth-child(1) { animation-delay: 0s; }
+        .slide.active .slide-content > *:nth-child(2) { animation-delay: 0.05s; }
+        .slide.active .slide-content > *:nth-child(3) { animation-delay: 0.1s; }
+        .slide.active .slide-content > *:nth-child(4) { animation-delay: 0.15s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .muted { color: var(--grijs-75); }
+
+        .small-note {
+            font-size: 0.85rem;
+            color: var(--grijs-75);
+            margin-top: 8px;
+        }
+
+        .accent-text {
+            color: var(--blauw-100);
+            font-weight: 600;
+        }
+
+        .conclusion-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--wit);
+            max-width: 700px;
+            line-height: 1.35;
+        }
+
+        .conclusion-text .highlight { color: var(--geel-100); }
+
+        .cta-box {
+            background: rgba(255,255,255,0.15);
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-top: 35px;
+            display: inline-block;
+        }
+
+        .cta-box p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .cta-box strong {
+            color: var(--geel-100);
+            font-size: 1.15rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide title-slide active" data-slide="1">
+            <div class="slide-content">
+                <h1><span class="highlight">AI</span> als Managementopgave</h1>
+                <p class="subtitle">Van Digital Business naar Agentic AI binnen ActiZ</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Kernboodschap -->
+        <div class="slide bg-white" data-slide="2">
+            <div class="slide-content">
+                <h2>Van Digital naar <span class="accent">Agentic AI</span></h2>
+                <p class="intro-text">Een fundamentele verschuiving in hoe organisaties werken.</p>
+                <div class="compare-container">
+                    <div class="compare-block old">
+                        <h3>Digital Business</h3>
+                        <p><strong>Focus:</strong> Efficiëntie van bestaande processen<br>
+                        <strong>Werking:</strong> Systemen wachten op input<br>
+                        <strong>Rol mens:</strong> Bouwt en beslist, systeem voert uit</p>
+                    </div>
+                    <div class="compare-block new">
+                        <h3>Agentic AI</h3>
+                        <p><strong>Focus:</strong> Autonomie en anticipatie<br>
+                        <strong>Werking:</strong> Systemen nemen waar, leren, handelen<br>
+                        <strong>Rol mens:</strong> Van 'maken' naar 'regisseren'</p>
+                    </div>
+                </div>
+                <div class="keynote">
+                    <strong>Kernboodschap:</strong> De grootste uitdaging is niet de technologie, maar de cultuuromslag.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Impact -->
+        <div class="slide bg-paars-light" data-slide="3">
+            <div class="slide-content">
+                <h2>Impact op de ActiZ Organisatie</h2>
+                <p class="intro-text">Van zelf bouwen naar het regisseren van processen.</p>
+                <div class="card-grid two-col">
+                    <div class="card">
+                        <h4>Strategie & Beleid</h4>
+                        <p>Van efficiency-verbetering naar autonomie. Wat mogen systemen beslissen? Verschuiving naar data-analyse en interpretatie.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Workflows & Processen</h4>
+                        <p>Mens regisseert, AI verzamelt en analyseert. Van zelf maken naar coördineren wat AI genereert.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Mensen & Cultuur</h4>
+                        <p>Medewerkers leren samenwerken met 'autonome collega's'. Training en nieuwe vaardigheden nodig.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Governance & Lobby</h4>
+                        <p>Wie is verantwoordelijk bij fouten? Van periodieke analyses naar real-time, evidence-based beïnvloeding.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Roadmap -->
+        <div class="slide bg-white" data-slide="4">
+            <div class="slide-content">
+                <h2>Roadmap: <span class="accent">4 Fasen</span></h2>
+                <p class="intro-text">Logisch opgebouwd — fases overslaan werkt niet.</p>
+                <div class="phases">
+                    <div class="phase">
+                        <div class="phase-number">1</div>
+                        <h4>Het Fundament<br><span class="muted">Data & Governance</span></h4>
+                    </div>
+                    <div class="phase">
+                        <div class="phase-number">2</div>
+                        <h4>Processen<br><span class="muted">Herontwerpen</span></h4>
+                    </div>
+                    <div class="phase">
+                        <div class="phase-number">3</div>
+                        <h4>Mensen & Rollen<br><span class="muted">Ontwikkelen</span></h4>
+                    </div>
+                    <div class="phase">
+                        <div class="phase-number">4</div>
+                        <h4>Nieuwe Lobby<br><span class="muted">Agentic AI</span></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Fase 1 -->
+        <div class="slide bg-blauw-light" data-slide="5">
+            <div class="slide-content">
+                <h2>Fase 1: Het Fundament</h2>
+                <p class="intro-text">Zonder goed fundament geen betrouwbare AI.</p>
+                
+                <table class="class-table" style="max-width: 750px;">
+                    <tr>
+                        <th>Classificatie</th>
+                        <th>Voorbeeld</th>
+                        <th>AI Toegang</th>
+                    </tr>
+                    <tr>
+                        <td>Openbaar</td>
+                        <td>Publicaties, standpunten</td>
+                        <td>Volledig toegestaan</td>
+                    </tr>
+                    <tr>
+                        <td>Intern</td>
+                        <td>Werkinstructies, memo's</td>
+                        <td>Toegestaan binnen kaders</td>
+                    </tr>
+                    <tr>
+                        <td>Vertrouwelijk</td>
+                        <td>Lobbystrategieën</td>
+                        <td>Menselijke validatie vereist</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td>Zeer vertrouwelijk</td>
+                        <td>Politieke scenario's, ledeninfo</td>
+                        <td>Uitsluiting of strikte permissie</td>
+                    </tr>
+                </table>
+
+                <div class="success-factors">
+                    <strong>Kritische succesfactoren:</strong>
+                    <span>Single Source of Truth per datacategorie</span>
+                    <span>Versiebeheer</span>
+                    <span>AI-stuurgroep instellen</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Fase 2 -->
+        <div class="slide bg-white" data-slide="6">
+            <div class="slide-content">
+                <h2>Fase 2: Procesherontwerp</h2>
+                <p class="intro-text">Niet automatiseren wat we deden, maar opnieuw ontwerpen.</p>
+                
+                <div class="flow-label">Oude werkwijze</div>
+                <div class="process-flow">
+                    <div class="process-step grey">Medewerker leest Kamerstukken</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step grey">Mens schrijft analyse</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step grey">Reactieve lobby</div>
+                </div>
+                
+                <div class="flow-label" style="margin-top: 20px;">Nieuwe werkwijze</div>
+                <div class="process-flow">
+                    <div class="process-step teal">AI monitort 24/7</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step teal">AI signaleert risico's & kansen</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step yellow">Beleidsregisseur bepaalt strategie</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step purple">Proactieve lobby</div>
+                </div>
+
+                <p class="small-note" style="margin-top: 25px;"><strong>Kennismanagement:</strong> Impliciete kennis expliciet maken — "Hoe beoordelen wij beleid?" — om AI te trainen op ActiZ-waarden.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Fase 3 -->
+        <div class="slide bg-paars-light" data-slide="7">
+            <div class="slide-content">
+                <h2>Fase 3: Mensen, Rollen & Cultuur</h2>
+                <p class="intro-text">Technologie verandert sneller dan cultuur — hier zit de bottleneck.</p>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Nieuwe Rollen</h4>
+                        <p><strong>AI-Regisseur:</strong> Stuurt AI-processen<br>
+                        <strong>Ethiek-bewaker:</strong> Toetst output<br>
+                        <strong>Data-eigenaar:</strong> Borgt kwaliteit</p>
+                    </div>
+                    <div class="card">
+                        <h4>Training & Skills</h4>
+                        <p>Niet 'leren prompten' maar 'leren samenwerken'. Kritisch lezen, bias herkennen, scenario-denken.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Cultuur</h4>
+                        <p>Fouten mogen benoemd. AI-output is <em>voorstel</em>, geen waarheid. Mens blijft leidend.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Fase 4 -->
+        <div class="slide bg-white" data-slide="8">
+            <div class="slide-content">
+                <h2>Fase 4: De Nieuwe Lobby</h2>
+                <p class="intro-text">Evidence-based, real-time en gepersonaliseerd.</p>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Real-time Impactanalyses</h4>
+                        <p>Wat betekent amendement X voor onze leden? Direct inzicht in gevolgen.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Stakeholder Analyse</h4>
+                        <p>Wie heeft invloed? Historische standpunten? Gepersonaliseerde boodschappen.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Simulaties</h4>
+                        <p>Vooruitkijken in plaats van terugkijken. Scenario's doorrekenen vóór besluitvorming.</p>
+                    </div>
+                </div>
+                <p class="small-note" style="margin-top: 20px; text-align: center;"><span class="accent-text">Resultaat:</span> Scherpere, snellere en beter onderbouwde belangenbehartiging.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Overzicht -->
+        <div class="slide bg-blauw-light" data-slide="9">
+            <div class="slide-content">
+                <h2>Wat moet ActiZ regelen?</h2>
+                <div class="overview-grid" style="margin-top: 20px;">
+                    <div class="overview-item">
+                        <strong>Data</strong>
+                        <span>Actualiteit, structuur, eigenaarschap, classificatie</span>
+                    </div>
+                    <div class="overview-item">
+                        <strong>Governance</strong>
+                        <span>Ethische kaders, verantwoordelijkheidslijnen</span>
+                    </div>
+                    <div class="overview-item">
+                        <strong>Processen</strong>
+                        <span>Van 'maken' naar 'regisseren', kennis expliciet maken</span>
+                    </div>
+                    <div class="overview-item">
+                        <strong>Rollen</strong>
+                        <span>AI-regisseur, Ethiek-bewaker, Data-eigenaar</span>
+                    </div>
+                    <div class="overview-item">
+                        <strong>Cultuur</strong>
+                        <span>Kritisch, lerend, mens 'in the loop'</span>
+                    </div>
+                    <div class="overview-item start">
+                        <strong>→ Startpunt</strong>
+                        <span>Het maken van de data-landkaart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Conclusie -->
+        <div class="slide title-slide" data-slide="10">
+            <div class="slide-content">
+                <p class="conclusion-text">AI is geen extra tool, maar een <span class="highlight">fundamentele verandering</span> in hoe we werken.</p>
+                <div class="cta-box">
+                    <p>Eerste stap voor ActiZ:</p>
+                    <strong>Breng de data-landkaart in beeld</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button class="nav-btn" id="prevBtn" disabled>←</button>
+        <div class="progress-dots" id="progressDots"></div>
+        <span class="slide-counter"><span id="currentSlide">1</span>/<span id="totalSlides">10</span></span>
+        <button class="nav-btn" id="nextBtn">→</button>
+    </div>
+    <div class="keyboard-hint">← → pijltjestoetsen</div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 1;
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideEl = document.getElementById('currentSlide');
+        const progressDots = document.getElementById('progressDots');
+
+        for (let i = 1; i <= totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 1 ? ' active' : '');
+            dot.addEventListener('click', () => goToSlide(i));
+            progressDots.appendChild(dot);
+        }
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index + 1 === currentSlide);
+            });
+            currentSlideEl.textContent = currentSlide;
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentSlide);
+            });
+        }
+
+        function goToSlide(n) {
+            currentSlide = Math.max(1, Math.min(n, totalSlides));
+            updateSlide();
+        }
+
+        prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                goToSlide(currentSlide - 1);
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) goToSlide(currentSlide + (diff > 0 ? 1 : -1));
+        });
+    </script>
+</body>
+</html>
